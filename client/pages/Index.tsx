@@ -40,9 +40,10 @@ export default function Index() {
           College Admission Assessment
         </h1>
         <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-          Discover your chances of getting into your dream college with our comprehensive
-          assessment tool. Answer a few questions about your academic background, test scores,
-          and goals to receive personalized insights.
+          Discover your chances of getting into your dream college with our
+          comprehensive assessment tool. Answer a few questions about your
+          academic background, test scores, and goals to receive personalized
+          insights.
         </p>
 
         <Link to="/questionnaire">
