@@ -409,25 +409,28 @@ const SmartAdmit = () => {
           {renderStep()}
         </div>
         
-        <div className="flex justify-between items-center max-w-md mx-auto">
-          {currentStep > 1 && (
+        <div className="flex justify-between items-center max-w-lg mx-auto px-4 mt-12">
+          {currentStep > 1 ? (
             <Button
               onClick={prevStep}
               variant="outline"
-              className="flex items-center space-x-2 border-[#232323] text-[#232323] hover:bg-[#232323] hover:text-white"
+              className="flex items-center space-x-2 border-[#232323] text-[#232323] hover:bg-[#232323] hover:text-white px-6 py-3"
             >
               <ChevronLeft className="w-4 h-4" />
-              <span className="font-bold">Back</span>
+              <span className="font-bold text-sm sm:text-base">Back</span>
             </Button>
+          ) : (
+            <div />
           )}
-          
-          <div className="flex-1" />
-          
+
           <Button
             onClick={nextStep}
-            className="bg-[#232323] hover:bg-[#232323]/90 text-white flex items-center space-x-2"
+            disabled={currentStep >= 5}
+            className="bg-[#232323] hover:bg-[#232323]/90 disabled:bg-gray-400 text-white flex items-center space-x-2 px-6 py-3"
           >
-            <span className="font-bold">Next</span>
+            <span className="font-bold text-sm sm:text-base">
+              {currentStep >= 5 ? 'Complete' : 'Next'}
+            </span>
             <ChevronRight className="w-4 h-4" />
           </Button>
         </div>
