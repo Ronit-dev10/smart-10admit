@@ -131,14 +131,30 @@ const SmartAdmit = () => {
             </div>
             
             <div className="flex-1 flex justify-center">
-              <div className="w-80 h-80 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg flex items-center justify-center">
-                <div className="text-center space-y-4">
-                  <div className="w-20 h-20 bg-[#232323] rounded-full mx-auto flex items-center justify-center">
-                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                      <div className="w-8 h-8 bg-gradient-to-r from-[#9FB971] to-[#467896] rounded-full" />
+              <div className="w-80 h-80 relative">
+                {/* Placeholder for the illustration - using a simplified version */}
+                <div className="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                  {/* Illustration elements */}
+                  <div className="absolute top-8 right-8 w-16 h-16 bg-yellow-200 rounded-full opacity-60" />
+                  <div className="absolute bottom-8 left-8 w-12 h-12 bg-blue-200 rounded-full opacity-60" />
+                  <div className="absolute top-16 left-12 w-8 h-8 bg-green-200 rounded-full opacity-60" />
+
+                  {/* Central figure */}
+                  <div className="relative z-10 text-center">
+                    <div className="w-24 h-24 bg-[#232323] rounded-full mx-auto mb-4 flex items-center justify-center">
+                      <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#232323]">
+                          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="space-y-2 text-xs text-gray-600">
+                      <div className="w-20 h-2 bg-gray-300 rounded mx-auto" />
+                      <div className="w-16 h-2 bg-gray-300 rounded mx-auto" />
+                      <div className="w-24 h-2 bg-gray-300 rounded mx-auto" />
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600">University Assessment Tool</p>
                 </div>
               </div>
             </div>
