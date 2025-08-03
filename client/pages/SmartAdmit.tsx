@@ -496,8 +496,13 @@ const SmartAdmit = () => {
         </div>
       </div>
 
-      {/* Background decoration */}
-      <div className="fixed bottom-0 left-0 right-0 h-60 sm:h-80 bg-gradient-to-t from-gray-50 to-transparent pointer-events-none opacity-20" />
+      {/* Background decoration - matching Figma design */}
+      <div className="fixed bottom-0 left-0 right-0 h-60 sm:h-80 pointer-events-none">
+        <div className="absolute bottom-0 left-0 w-full h-80 opacity-20">
+          <div className="absolute bottom-0 left-0 w-1/2 h-full bg-gradient-to-t from-blue-50 to-transparent" />
+          <div className="absolute bottom-0 right-0 w-1/2 h-full bg-gradient-to-t from-indigo-50 to-transparent" />
+        </div>
+      </div>
     </div>
   );
 };
