@@ -75,37 +75,43 @@ const SmartAdmit = () => {
     }
   };
 
-  const ProgressTimeline = () => (
-    <div className="flex items-center justify-center mb-12">
-      <div className="flex items-center">
-        {Array.from({ length: 7 }, (_, index) => (
-          <div key={index} className="flex items-center">
-            <div
-              className={`
-                w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all
-                ${index < currentStep
-                  ? 'bg-[#232323] text-white'
-                  : index === currentStep
-                  ? 'bg-[#232323] text-white'
-                  : 'bg-[#9F9C9C] text-white opacity-50'
-                }
-              `}
-            >
-              {index + 1}
-            </div>
-            {index < 6 && (
+  const ProgressTimeline = () => {
+    // Show only 7 steps in the timeline as per design, but track current step properly
+    const timelineSteps = Math.min(currentStep, 7);
+    const timelineCurrentStep = Math.min(currentStep - 1, 6); // Convert to 0-based for timeline
+
+    return (
+      <div className="flex items-center justify-center mb-12">
+        <div className="flex items-center">
+          {Array.from({ length: 7 }, (_, index) => (
+            <div key={index} className="flex items-center">
               <div
                 className={`
-                  w-16 sm:w-20 md:w-24 h-[1.5px] mx-1 transition-all
-                  ${index < currentStep ? 'bg-[#232323]' : 'bg-[#E3E3E3]'}
+                  w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all
+                  ${index < timelineCurrentStep
+                    ? 'bg-[#232323] text-white'
+                    : index === timelineCurrentStep
+                    ? 'bg-[#232323] text-white'
+                    : 'bg-[#9F9C9C] text-white opacity-50'
+                  }
                 `}
-              />
-            )}
-          </div>
-        ))}
+              >
+                {index + 1}
+              </div>
+              {index < 6 && (
+                <div
+                  className={`
+                    w-16 sm:w-20 md:w-24 h-[1.5px] mx-1 transition-all
+                    ${index < timelineCurrentStep ? 'bg-[#232323]' : 'bg-[#E3E3E3]'}
+                  `}
+                />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const Logo = () => (
     <div className="flex items-center space-x-2">
