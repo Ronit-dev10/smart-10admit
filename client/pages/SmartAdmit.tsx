@@ -247,8 +247,30 @@ const SmartAdmit = () => {
       </div>
 
       <div className="max-w-lg mx-auto px-4">
-        <Select>
-          <SelectTrigger className="w-full p-4 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-left">
+        <Select onValueChange={(value) => {
+          const universityName = {
+            'harvard': 'Harvard University',
+            'stanford': 'Stanford University',
+            'mit': 'Massachusetts Institute of Technology',
+            'yale': 'Yale University',
+            'princeton': 'Princeton University',
+            'columbia': 'Columbia University',
+            'upenn': 'University of Pennsylvania',
+            'brown': 'Brown University',
+            'cornell': 'Cornell University',
+            'dartmouth': 'Dartmouth College',
+            'duke': 'Duke University',
+            'northwestern': 'Northwestern University',
+            'uchicago': 'University of Chicago',
+            'vanderbilt': 'Vanderbilt University',
+            'rice': 'Rice University'
+          }[value] || value;
+
+          if (!formData.universities.includes(universityName) && formData.universities.length < 5) {
+            updateFormData('universities', [...formData.universities, universityName]);
+          }
+        }}>
+          <SelectTrigger className={`w-full p-4 border rounded-md bg-[#FDFDFD] text-left ${formData.universities.length > 0 ? 'border-[#E3E3E3]' : 'border-red-200'}`}>
             <SelectValue placeholder="--Select--" className="text-[#9F9C9C]" />
           </SelectTrigger>
           <SelectContent>
@@ -273,18 +295,35 @@ const SmartAdmit = () => {
         {/* Show selected universities */}
         {formData.universities.length > 0 && (
           <div className="mt-4 space-y-2">
-            <p className="text-sm font-medium text-[#282828]">Selected Universities:</p>
+            <p className="text-sm font-medium text-[#282828]">Selected Universities ({formData.universities.length}/5):</p>
             <div className="flex flex-wrap gap-2">
               {formData.universities.map((uni, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 text-xs font-medium text-[#282828] bg-gray-100 rounded-full"
+                  className="px-3 py-1 text-xs font-medium text-[#282828] bg-gray-100 rounded-full flex items-center space-x-1"
                 >
-                  {uni}
+                  <span>{uni}</span>
+                  <button
+                    onClick={() => {
+                      const newUniversities = formData.universities.filter((_, i) => i !== index);
+                      updateFormData('universities', newUniversities);
+                    }}
+                    className="text-red-500 hover:text-red-700 ml-1"
+                  >
+                    ×
+                  </button>
                 </span>
               ))}
             </div>
           </div>
+        )}
+
+        {formData.universities.length === 0 && (
+          <p className="mt-2 text-xs text-red-500 text-center">Please select at least one university to continue</p>
+        )}
+
+        {formData.universities.length >= 5 && (
+          <p className="mt-2 text-xs text-[#797979] text-center">Maximum of 5 universities selected</p>
         )}
       </div>
     </div>
