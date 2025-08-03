@@ -397,24 +397,26 @@ const SmartAdmit = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="absolute top-6 left-6">
+    <div className="min-h-screen bg-white relative">
+      <div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-10">
         <Logo />
       </div>
-      
-      <div className="max-w-4xl mx-auto px-4 py-20">
-        <ProgressTimeline />
-        
-        <div className="mb-12">
+
+      <div className="max-w-4xl mx-auto px-4 py-16 sm:py-20">
+        <div className="pt-16 sm:pt-12">
+          <ProgressTimeline />
+        </div>
+
+        <div className="mb-8 sm:mb-12">
           {renderStep()}
         </div>
-        
-        <div className="flex justify-between items-center max-w-lg mx-auto px-4 mt-12">
+
+        <div className="flex justify-between items-center max-w-lg mx-auto px-4 mt-8 sm:mt-12">
           {currentStep > 1 ? (
             <Button
               onClick={prevStep}
               variant="outline"
-              className="flex items-center space-x-2 border-[#232323] text-[#232323] hover:bg-[#232323] hover:text-white px-6 py-3"
+              className="flex items-center space-x-2 border-[#232323] text-[#232323] hover:bg-[#232323] hover:text-white px-4 sm:px-6 py-2.5 sm:py-3"
             >
               <ChevronLeft className="w-4 h-4" />
               <span className="font-bold text-sm sm:text-base">Back</span>
@@ -426,7 +428,7 @@ const SmartAdmit = () => {
           <Button
             onClick={nextStep}
             disabled={currentStep >= 5}
-            className="bg-[#232323] hover:bg-[#232323]/90 disabled:bg-gray-400 text-white flex items-center space-x-2 px-6 py-3"
+            className="bg-[#232323] hover:bg-[#232323]/90 disabled:bg-gray-400 text-white flex items-center space-x-2 px-4 sm:px-6 py-2.5 sm:py-3"
           >
             <span className="font-bold text-sm sm:text-base">
               {currentStep >= 5 ? 'Complete' : 'Next'}
@@ -435,9 +437,9 @@ const SmartAdmit = () => {
           </Button>
         </div>
       </div>
-      
+
       {/* Background decoration */}
-      <div className="fixed bottom-0 left-0 right-0 h-80 bg-gradient-to-t from-gray-50 to-transparent pointer-events-none opacity-20" />
+      <div className="fixed bottom-0 left-0 right-0 h-60 sm:h-80 bg-gradient-to-t from-gray-50 to-transparent pointer-events-none opacity-20" />
     </div>
   );
 };
