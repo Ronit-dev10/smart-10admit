@@ -397,16 +397,14 @@ const SmartAdmit = () => {
       </div>
 
       <div className="max-w-lg mx-auto px-4">
-        <Input
-          key="sat-score-input"
+        <MemoizedInput
           type="number"
           placeholder="Type"
           min="400"
           max="1600"
           value={formData.satScore}
-          onChange={(e) => updateFormData('satScore', e.target.value)}
+          onChange={(value) => updateFormData('satScore', value)}
           className="w-full p-5 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-base placeholder:text-[#9F9C9C]"
-          autoComplete="off"
         />
         <div className="mt-2 min-h-[20px]">
           {formData.satScore && (
