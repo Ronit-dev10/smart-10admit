@@ -170,8 +170,8 @@ const SmartAdmit = () => {
               {index < 6 && (
                 <div
                   className={`
-                    w-16 sm:w-20 md:w-24 h-[1.5px] mx-1 transition-all
-                    ${index < timelineCurrentStep ? 'bg-[#232323]' : 'bg-[#E3E3E3]'}
+                    w-16 sm:w-20 md:w-24 h-[1.5px] mx-1 transition-all duration-500 ease-in-out
+                    ${index < timelineCurrentStep ? 'bg-[#232323] scale-y-150' : 'bg-[#E3E3E3]'}
                   `}
                 />
               )}
