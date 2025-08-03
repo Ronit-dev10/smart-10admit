@@ -372,12 +372,15 @@ const SmartAdmit = () => {
           value={formData.satScore}
           onChange={(e) => updateFormData('satScore', e.target.value)}
           className="w-full p-5 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-base placeholder:text-[#9F9C9C]"
+          autoComplete="off"
         />
-        {formData.satScore && (
-          <p className="mt-2 text-xs text-[#797979] text-center">
-            Score range: 400-1600 • Average: ~1050
-          </p>
-        )}
+        <div className="mt-2 min-h-[20px]">
+          {formData.satScore && (
+            <p className="text-xs text-[#797979] text-center">
+              Score range: 400-1600 • Average: ~1050
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
