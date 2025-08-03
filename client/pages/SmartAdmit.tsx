@@ -1057,9 +1057,9 @@ const SmartAdmit = () => {
             <Button
               onClick={prevStep}
               variant="outline"
-              className="flex items-center space-x-2 border-[#232323] text-[#232323] hover:bg-[#232323] hover:text-white px-4 sm:px-6 py-2.5 sm:py-3"
+              className="flex items-center space-x-2 border-[#232323] text-[#232323] hover:bg-[#232323] hover:text-white px-4 sm:px-6 py-2.5 sm:py-3 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-4 h-4 transition-transform duration-200" />
               <span className="font-bold text-sm sm:text-base">Back</span>
             </Button>
           ) : (
