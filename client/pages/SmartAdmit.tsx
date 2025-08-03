@@ -984,7 +984,7 @@ const SmartAdmit = () => {
 
           <Button
             onClick={nextStep}
-            disabled={currentStep >= 8 || (currentStep > 0 && !isStepValid(currentStep))}
+            disabled={currentStep >= 9 || (currentStep > 0 && !isStepValid(currentStep))}
             className="bg-[#232323] hover:bg-[#232323]/90 disabled:bg-gray-400 disabled:cursor-not-allowed text-white flex items-center space-x-2 px-4 sm:px-6 py-2.5 sm:py-3"
           >
             <span className="font-bold text-sm sm:text-base">
