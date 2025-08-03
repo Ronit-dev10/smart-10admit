@@ -21,6 +21,39 @@ interface FormData {
   activityHoursPerWeek: string;
 }
 
+// Memoized input component to prevent re-renders
+const MemoizedInput = memo(({
+  value,
+  onChange,
+  placeholder,
+  type = "text",
+  className = "",
+  min,
+  max,
+  step
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  type?: string;
+  className?: string;
+  min?: string;
+  max?: string;
+  step?: string;
+}) => (
+  <Input
+    type={type}
+    placeholder={placeholder}
+    min={min}
+    max={max}
+    step={step}
+    value={value}
+    onChange={(e) => onChange(e.target.value)}
+    className={className}
+    autoComplete="off"
+  />
+));
+
 const SmartAdmit = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
