@@ -412,6 +412,7 @@ const SmartAdmit = () => {
           </Select>
 
           <Input
+            key="gpa-score-input"
             type="number"
             placeholder="Enter Your Score"
             step="0.01"
