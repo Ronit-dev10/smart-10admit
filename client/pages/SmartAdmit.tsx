@@ -417,16 +417,19 @@ const SmartAdmit = () => {
             value={formData.gpaScore}
             onChange={(e) => updateFormData('gpaScore', e.target.value)}
             className="flex-1 p-5 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-base placeholder:text-[#9F9C9C]"
+            autoComplete="off"
           />
         </div>
 
-        {formData.gpaScale && (
-          <div className="text-xs text-[#797979] text-center space-y-1">
-            {formData.gpaScale === "4.0" && <p>Range: 0.0 - 4.0 • Average: ~3.0</p>}
-            {formData.gpaScale === "5.0" && <p>Range: 0.0 - 5.0 • Average: ~3.5</p>}
-            {formData.gpaScale === "100" && <p>Range: 0 - 100 • Average: ~85</p>}
-          </div>
-        )}
+        <div className="min-h-[40px]">
+          {formData.gpaScale && (
+            <div className="text-xs text-[#797979] text-center space-y-1">
+              {formData.gpaScale === "4.0" && <p>Range: 0.0 - 4.0 • Average: ~3.0</p>}
+              {formData.gpaScale === "5.0" && <p>Range: 0.0 - 5.0 • Average: ~3.5</p>}
+              {formData.gpaScale === "100" && <p>Range: 0 - 100 • Average: ~85</p>}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
