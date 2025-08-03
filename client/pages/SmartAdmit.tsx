@@ -186,18 +186,8 @@ const WelcomeScreen = () => (
   </div>
 );
 
-export default WelcomeScreen; // export only if you want to import this elsewhere
+export default WelcomeScreen;
 
-                      </div>
-                    </div>
-                    <div className="space-y-2 text-xs text-gray-600">
-                      <div className="w-20 h-2 bg-gray-300 rounded mx-auto" />
-                      <div className="w-16 h-2 bg-gray-300 rounded mx-auto" />
-                      <div className="w-24 h-2 bg-gray-300 rounded mx-auto" />
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 
