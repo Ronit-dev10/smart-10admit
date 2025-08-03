@@ -155,16 +155,16 @@ const SmartAdmit = () => {
           {Array.from({ length: 7 }, (_, index) => (
             <div key={index} className="flex items-center">
               <div
-                className={`
-                  w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all
-                  ${index < timelineCurrentStep
-                    ? 'bg-[#232323] text-white'
-                    : index === timelineCurrentStep
-                    ? 'bg-[#232323] text-white'
-                    : 'bg-[#9F9C9C] text-white opacity-50'
-                  }
-                `}
-              >
+              className={`
+                w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ease-in-out transform hover:scale-110
+                ${index < timelineCurrentStep
+                  ? 'bg-[#232323] text-white scale-105'
+                  : index === timelineCurrentStep
+                  ? 'bg-[#232323] text-white scale-110 shadow-lg'
+                  : 'bg-[#9F9C9C] text-white opacity-50'
+                }
+              `}
+            >
                 {index + 1}
               </div>
               {index < 6 && (
