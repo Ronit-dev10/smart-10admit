@@ -54,6 +54,7 @@ const SmartAdmit = () => {
       case 6: return true; // Extracurricular hours step is optional
       case 7: return formData.extracurricularTypes.length > 0;
       case 8: return true; // More questions step is optional
+      case 9: return true; // Results page
       default: return true;
     }
   };
