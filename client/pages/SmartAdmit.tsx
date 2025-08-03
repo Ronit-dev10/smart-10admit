@@ -45,15 +45,17 @@ const SmartAdmit = () => {
   };
 
   const ProgressTimeline = () => (
-    <div className="flex items-center justify-center mb-8">
-      <div className="flex items-center space-x-2">
+    <div className="flex items-center justify-center mb-12">
+      <div className="flex items-center">
         {Array.from({ length: totalSteps }, (_, index) => (
           <div key={index} className="flex items-center">
             <div
               className={`
-                w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold
-                ${index <= currentStep 
-                  ? 'bg-[#232323] text-white' 
+                w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all
+                ${index < currentStep
+                  ? 'bg-[#232323] text-white'
+                  : index === currentStep
+                  ? 'bg-[#232323] text-white'
                   : 'bg-[#9F9C9C] text-white opacity-50'
                 }
               `}
@@ -63,7 +65,7 @@ const SmartAdmit = () => {
             {index < totalSteps - 1 && (
               <div
                 className={`
-                  w-16 h-0.5 mx-1
+                  w-16 sm:w-20 md:w-24 h-[1.5px] mx-1 transition-all
                   ${index < currentStep ? 'bg-[#232323]' : 'bg-[#E3E3E3]'}
                 `}
               />
