@@ -477,7 +477,7 @@ const SmartAdmit = () => {
             </SelectContent>
           </Select>
 
-          <MemoizedInput
+          <IsolatedInput
             type="number"
             placeholder="Enter Your Score"
             step="0.01"
