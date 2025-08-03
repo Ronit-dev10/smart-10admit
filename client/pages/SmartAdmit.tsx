@@ -623,6 +623,7 @@ const SmartAdmit = () => {
             value={formData.activityTitle}
             onChange={(e) => updateFormData('activityTitle', e.target.value)}
             className="w-full p-3 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-base placeholder:text-[#9F9C9C]"
+            autoComplete="off"
           />
         </div>
 
