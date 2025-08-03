@@ -272,18 +272,22 @@ const SmartAdmit = () => {
   );
 
   const SATScoreStep = () => (
-    <div className="space-y-8">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-[#282828] mb-4">
+    <div className="space-y-12">
+      <div className="text-center space-y-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#282828]">
           What is your SAT score?
         </h2>
-        <p className="text-sm font-bold text-[#282828]">
-          Enter your most recent total SAT score out of 1600{' '}
-          <span className="font-normal text-[#797979]">(optional if not taken yet)</span>
+        <p className="text-xs sm:text-sm px-4 max-w-2xl mx-auto">
+          <span className="font-bold text-[#282828] uppercase tracking-wide">
+            Enter your most recent total SAT score out of 1600
+          </span>{' '}
+          <span className="font-normal text-[#797979]">
+            (optional if not taken yet)
+          </span>
         </p>
       </div>
-      
-      <div className="max-w-md mx-auto">
+
+      <div className="max-w-lg mx-auto px-4">
         <Input
           type="number"
           placeholder="Type"
@@ -291,8 +295,13 @@ const SmartAdmit = () => {
           max="1600"
           value={formData.satScore}
           onChange={(e) => updateFormData('satScore', e.target.value)}
-          className="w-full p-4 border border-[#E3E3E3] rounded bg-[#FDFDFD]"
+          className="w-full p-5 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-base placeholder:text-[#9F9C9C]"
         />
+        {formData.satScore && (
+          <p className="mt-2 text-xs text-[#797979] text-center">
+            Score range: 400-1600 • Average: ~1050
+          </p>
+        )}
       </div>
     </div>
   );
