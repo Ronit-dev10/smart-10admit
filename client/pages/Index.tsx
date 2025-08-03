@@ -23,41 +23,44 @@ export default function Index() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
-      <div className="text-center">
-        {/* TODO: FUSION_GENERATION_APP_PLACEHOLDER replace everything here with the actual app! */}
-        <h1 className="text-2xl font-semibold text-slate-800 flex items-center justify-center gap-3">
-          <svg
-            className="animate-spin h-8 w-8 text-slate-400"
-            viewBox="0 0 50 50"
-          >
-            <circle
-              className="opacity-30"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-            />
-            <circle
-              className="text-slate-600"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-              strokeDasharray="100"
-              strokeDashoffset="75"
-            />
-          </svg>
-          Generating your app...
+      <div className="text-center max-w-2xl px-8">
+        <div className="flex items-center justify-center space-x-2 mb-8">
+          <div className="w-12 h-12 rounded-full bg-[#232323] flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-r from-[#9FB971] via-[#FFD965] to-[#467896] rounded-full" />
+          </div>
+          <div className="flex">
+            <span className="text-3xl font-bold text-[#232323]">uni</span>
+            <span className="text-3xl font-bold bg-gradient-to-r from-[#9FB971] via-[#FFD965] to-[#467896] bg-clip-text text-transparent">
+              iq
+            </span>
+          </div>
+        </div>
+
+        <h1 className="text-4xl font-bold text-slate-800 mb-4">
+          College Admission Assessment
         </h1>
-        <p className="mt-4 text-slate-600 max-w-md">
-          Watch the chat on the left for updates that might need your attention
-          to finish generating
+        <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+          Discover your chances of getting into your dream college with our comprehensive
+          assessment tool. Answer a few questions about your academic background, test scores,
+          and goals to receive personalized insights.
         </p>
-        <p className="mt-4 hidden max-w-md">{exampleFromServer}</p>
+
+        <Link to="/questionnaire">
+          <Button
+            size="lg"
+            className="bg-[#232323] hover:bg-[#232323]/90 text-white px-8 py-3 text-lg font-semibold"
+          >
+            Start Assessment
+          </Button>
+        </Link>
+
+        <div className="mt-8 text-sm text-slate-500">
+          <p>Takes about 5 minutes to complete</p>
+        </div>
+
+        <div className="mt-12 text-xs text-slate-400">
+          <p className="hidden">{exampleFromServer}</p>
+        </div>
       </div>
     </div>
   );
