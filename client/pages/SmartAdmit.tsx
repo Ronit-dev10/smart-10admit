@@ -33,7 +33,7 @@ interface FormData {
   activityHoursPerWeek: string;
 }
 
-// Single IsolatedInput component, memoized for performance
+// Memoized input component
 const IsolatedInput = memo(
   ({
     value,
@@ -53,170 +53,20 @@ const IsolatedInput = memo(
     min?: string;
     max?: string;
     step?: string;
-  }) => {
-    return (
-      <Input
-        type={type}
-        placeholder={placeholder}
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={className}
-        autoComplete="off"
-      />
-    );
-  }
+  }) => (
+    <Input
+      type={type}
+      placeholder={placeholder}
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className={className}
+      autoComplete="off"
+    />
+  )
 );
-
-const SmartAdmit = () => {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState<FormData>({
-    major: "",
-    universities: [],
-    satScore: "",
-    gpaScale: "",
-    gpaScore: "",
-    gradeLevel: "",
-    extracurricularHours: 10,
-    extracurricularTypes: [],
-    activityTitle: "",
-    activityRole: "",
-    activityDuration: "",
-    activityHoursPerWeek: "",
-  });
-
-  const totalSteps = 10;
-
-  const updateFormData = useCallback(
-    (field: keyof FormData, value: string | string[] | number) => {
-      setFormData((prev) => ({ ...prev, [field]: value }));
-    },
-    []
-  );
-
-  const isStepValid = (step: number): boolean => {
-    switch (step) {
-      case 1:
-        return formData.major !== "";
-      case 2:
-        return formData.universities.length > 0;
-      case 3:
-        return true; // SAT score optional
-      case 4:
-        return formData.gpaScale !== "" && formData.gpaScore !== "";
-      case 5:
-        return formData.gradeLevel !== "";
-      case 6:
-        return true; // Extracurricular hours optional
-      case 7:
-        return formData.extracurricularTypes.length > 0;
-      case 8:
-        return true; // More questions optional
-      case 9:
-        return true; // Results page
-      default:
-        return true;
-    }
-  };
-
-  const nextStep = () => {
-    if (currentStep === 0) {
-      setCurrentStep(1);
-      return;
-    }
-    if (currentStep < totalSteps - 1 && isStepValid(currentStep)) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const prevStep = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
-  const ProgressTimeline = () => {
-    const timelineCurrentStep = Math.min(currentStep - 1, 6);
-
-    return (
-      <div className="flex items-center justify-center mb-12">
-        <div className="flex items-center">
-          {Array.from({ length: 7 }, (_, index) => (
-            <div key={index} className="flex items-center">
-              <div
-                className={`
-                  w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ease-in-out transform hover:scale-110
-                  ${
-                    index < timelineCurrentStep
-                      ? "bg-[#232323] text-white scale-105"
-                      : index === timelineCurrentStep
-                      ? "bg-[#232323] text-white scale-110 shadow-lg"
-                      : "bg-[#9F9C9C] text-white opacity-50"
-                  }
-                `}
-              >
-                {index + 1}
-              </div>
-              {index !== 6 && (
-                <div
-                  className={`w-12 h-[2px] ${
-                    index < timelineCurrentStep
-                      ? "bg-[#232323]"
-                      : "bg-[#9F9C9C] opacity-50"
-                  }`}
-                />
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  // You can expand this switch to render actual form inputs for each step
-  const renderStep = () => {
-    switch (currentStep) {
-      case 0:
-        return <WelcomeScreen onStart={nextStep} />;
-      case 1:
-        return (
-          <div>
-            <Label>Major</Label>
-            <IsolatedInput
-              value={formData.major}
-              onChange={(v) => updateFormData("major", v)}
-              placeholder="Enter your intended major"
-            />
-            <Button onClick={nextStep} className="mt-4">
-              Next
-            </Button>
-          </div>
-        );
-      // Add other cases for steps 2-9 similarly
-      default:
-        return <div>Form step {currentStep}</div>;
-    }
-  };
-
-  return (
-    <div className="max-w-3xl mx-auto p-6">
-      <ProgressTimeline />
-      {renderStep()}
-      {currentStep > 0 && (
-        <Button
-          variant="outline"
-          onClick={prevStep}
-          className="mt-4 mr-4 inline-flex items-center"
-        >
-          <ChevronLeft className="mr-2" />
-          Back
-        </Button>
-      )}
-    </div>
-  );
-};
 
 const Logo = () => (
   <div className="flex items-center space-x-2">
@@ -241,11 +91,7 @@ const Logo = () => (
   </div>
 );
 
-type WelcomeScreenProps = {
-  onStart: () => void;
-};
-
-const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => (
+const WelcomeScreen = () => (
   <div className="min-h-screen bg-[#232323] flex items-center justify-center p-4">
     <div className="absolute top-6 right-6">
       <button className="text-[#E4E4E4] text-sm hover:text-white transition-colors flex items-center space-x-2">
@@ -259,9 +105,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => (
         <CardDescription className="text-[#5E5E5E] text-sm font-semibold uppercase tracking-wide">
           Welcome to
         </CardDescription>
-        <CardTitle className="text-4xl font-bold text-[#282828] mt-2">
-          SmartAdmit
-        </CardTitle>
+        <CardTitle className="text-4xl font-bold text-[#282828] mt-2">SmartAdmit</CardTitle>
       </CardHeader>
 
       <CardContent className="p-8">
@@ -269,10 +113,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => (
           <div className="flex-1 space-y-8">
             <div className="space-y-4">
               <p className="text-lg text-[#282828] leading-relaxed">
-                SmartAdmit helps you assess your chances of getting into your dream college by
-                analyzing your grades, test scores, extracurriculars, and more. Unlock personalized
-                insights, see how you stack up, and discover ways to boost your application with the
-                Smart Admit.
+                SmartAdmit helps you assess your chances of getting into your dream college by analyzing your grades, test scores, extracurriculars, and more. Unlock personalized insights, see how you stack up, and discover ways to boost your application with the Smart Admit.
               </p>
               <p className="font-bold text-[#232323]">
                 Your dream school is calling—see how close you are to answering!
@@ -280,7 +121,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => (
             </div>
 
             <Button
-              onClick={onStart}
+              onClick={() => {} /* you can replace with your nextStep function */}
               className="bg-[#232323] hover:bg-[#232323]/90 text-white px-8 py-3 rounded-lg flex items-center space-x-2"
             >
               <span className="text-lg font-bold">Get started</span>
@@ -312,19 +153,41 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => (
                       </svg>
                     </div>
                   </div>
+                  <div className="space-y-2 text-xs text-gray-600">
+                    <div className="w-20 h-2 bg-gray-300 rounded mx-auto" />
+                    <div className="w-16 h-2 bg-gray-300 rounded mx-auto" />
+                    <div className="w-24 h-2 bg-gray-300 rounded mx-auto" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-2 justify-center">
+          {[
+            "Computer Science",
+            "Economics",
+            "Psychology",
+            "Business Administration",
+            "Political Science",
+            "Mechanical Engineering",
+          ].map((major) => (
+            <span
+              key={major}
+              className="px-3 py-1.5 text-xs font-bold text-[#797979] border border-gray-200 rounded bg-white"
+            >
+              {major}
+            </span>
+          ))}
         </div>
       </CardContent>
     </Card>
   </div>
 );
 
-export default SmartAdmit;
+export default WelcomeScreen; // export only if you want to import this elsewhere
 
-                        </svg>
                       </div>
                     </div>
                     <div className="space-y-2 text-xs text-gray-600">
