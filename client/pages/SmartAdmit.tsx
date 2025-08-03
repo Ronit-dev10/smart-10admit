@@ -307,38 +307,47 @@ const SmartAdmit = () => {
   );
 
   const GPAStep = () => (
-    <div className="space-y-8">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-[#282828] mb-4">
+    <div className="space-y-12">
+      <div className="text-center space-y-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#282828]">
           What is your cumulative GPA?
         </h2>
-        <p className="text-sm font-bold text-[#282828] uppercase tracking-wide">
+        <p className="text-xs sm:text-sm font-bold text-[#282828] uppercase tracking-wide px-4">
           Choose the GPA scale used and enter your score:
         </p>
       </div>
-      
-      <div className="max-w-md mx-auto space-y-4">
-        <div className="flex space-x-4">
-          <Select onValueChange={(value) => updateFormData('gpaScale', value)}>
-            <SelectTrigger className="flex-1 p-4 border border-[#E3E3E3] rounded bg-[#FDFDFD]">
-              <SelectValue placeholder="--Select--" />
+
+      <div className="max-w-lg mx-auto px-4 space-y-4">
+        <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+          <Select onValueChange={(value) => updateFormData('gpaScale', value)} value={formData.gpaScale}>
+            <SelectTrigger className="flex-1 p-4 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-left">
+              <SelectValue placeholder="--Select--" className="text-[#9F9C9C]" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="4.0">4.0 Scale</SelectItem>
-              <SelectItem value="5.0">5.0 Scale</SelectItem>
+              <SelectItem value="5.0">5.0 Scale (Weighted)</SelectItem>
               <SelectItem value="100">100 Point Scale</SelectItem>
+              <SelectItem value="other">Other</SelectItem>
             </SelectContent>
           </Select>
-          
+
           <Input
             type="number"
             placeholder="Enter Your Score"
             step="0.01"
             value={formData.gpaScore}
             onChange={(e) => updateFormData('gpaScore', e.target.value)}
-            className="flex-1 p-4 border border-[#E3E3E3] rounded bg-[#FDFDFD]"
+            className="flex-1 p-5 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-base placeholder:text-[#9F9C9C]"
           />
         </div>
+
+        {formData.gpaScale && (
+          <div className="text-xs text-[#797979] text-center space-y-1">
+            {formData.gpaScale === "4.0" && <p>Range: 0.0 - 4.0 • Average: ~3.0</p>}
+            {formData.gpaScale === "5.0" && <p>Range: 0.0 - 5.0 • Average: ~3.5</p>}
+            {formData.gpaScale === "100" && <p>Range: 0 - 100 • Average: ~85</p>}
+          </div>
+        )}
       </div>
     </div>
   );
