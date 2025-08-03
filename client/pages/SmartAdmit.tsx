@@ -683,7 +683,7 @@ const SmartAdmit = () => {
       <div className="max-w-lg mx-auto px-4 space-y-8">
         <div className="space-y-2">
           <Label className="text-[#232323] font-bold">Activity Title:</Label>
-          <MemoizedInput
+          <IsolatedInput
             type="text"
             placeholder="Text"
             value={formData.activityTitle}
