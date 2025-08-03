@@ -432,7 +432,7 @@ const SmartAdmit = () => {
       </div>
 
       <div className="max-w-lg mx-auto px-4">
-        <MemoizedInput
+        <IsolatedInput
           type="number"
           placeholder="Type"
           min="400"
