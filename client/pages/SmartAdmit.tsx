@@ -32,8 +32,24 @@ const SmartAdmit = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const isStepValid = (step: number): boolean => {
+    switch (step) {
+      case 1: return formData.major !== '';
+      case 2: return formData.universities.length > 0;
+      case 3: return true; // SAT score is optional
+      case 4: return formData.gpaScale !== '' && formData.gpaScore !== '';
+      case 5: return formData.gradeLevel !== '';
+      default: return true;
+    }
+  };
+
   const nextStep = () => {
-    if (currentStep < totalSteps - 1) {
+    if (currentStep === 0) {
+      setCurrentStep(1);
+      return;
+    }
+
+    if (currentStep < totalSteps - 1 && isStepValid(currentStep)) {
       setCurrentStep(currentStep + 1);
     }
   };
