@@ -538,26 +538,36 @@ const SmartAdmit = () => {
 
       <div className="max-w-3xl mx-auto px-4 space-y-12">
         <div className="space-y-3">
-          <div className="relative w-full h-2.5">
+          <div className="relative w-full h-10 flex items-center">
+            {/* Background track */}
             <div className="w-full h-2.5 bg-gray-200 rounded-lg border border-[#E4E4E4]" />
-            <div 
-              className="h-2.5 bg-[#E0BEBA] rounded-lg absolute top-0 left-0"
+
+            {/* Progress fill */}
+            <div
+              className="h-2.5 bg-[#E0BEBA] rounded-lg absolute top-1/2 left-0 transform -translate-y-1/2 transition-all duration-300 ease-out"
               style={{ width: `${(formData.extracurricularHours / 40) * 100}%` }}
             />
-            <div 
-              className="absolute top-0 w-4 h-4 bg-[#C17C74] border-2 border-white rounded-full cursor-pointer transform -translate-y-1"
+
+            {/* Slider thumb */}
+            <div
+              className="absolute top-1/2 w-4 h-4 bg-[#C17C74] border-2 border-white rounded-full cursor-pointer transform -translate-y-1/2 transition-all duration-300 ease-out shadow-lg hover:scale-110"
               style={{ left: `calc(${(formData.extracurricularHours / 40) * 100}% - 8px)` }}
             />
+
+            {/* Invisible range input overlay */}
+            <input
+              type="range"
+              min="0"
+              max="40"
+              value={formData.extracurricularHours}
+              onChange={(e) => updateFormData('extracurricularHours', parseInt(e.target.value))}
+              className="absolute inset-0 w-full h-full bg-transparent appearance-none cursor-pointer opacity-0 z-10"
+              style={{
+                WebkitAppearance: 'none',
+                background: 'transparent'
+              }}
+            />
           </div>
-          
-          <input
-            type="range"
-            min="0"
-            max="40"
-            value={formData.extracurricularHours}
-            onChange={(e) => updateFormData('extracurricularHours', parseInt(e.target.value))}
-            className="w-full h-2.5 bg-transparent appearance-none cursor-pointer opacity-0 absolute top-0"
-          />
         </div>
 
         <div className="flex justify-between text-sm font-bold text-[#434343]">
