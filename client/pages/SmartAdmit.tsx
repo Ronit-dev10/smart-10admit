@@ -620,6 +620,7 @@ const SmartAdmit = () => {
         <div className="space-y-2">
           <Label className="text-[#232323] font-bold">Activity Title:</Label>
           <Input
+            key="activity-title-input"
             type="text"
             placeholder="Text"
             value={formData.activityTitle}
