@@ -365,6 +365,7 @@ const SmartAdmit = () => {
 
       <div className="max-w-lg mx-auto px-4">
         <Input
+          key="sat-score-input"
           type="number"
           placeholder="Type"
           min="400"
