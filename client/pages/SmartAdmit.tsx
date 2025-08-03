@@ -211,21 +211,26 @@ const SmartAdmit = () => {
   );
 
   const UniversitySelectionStep = () => (
-    <div className="space-y-8">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-[#282828] mb-4">
+    <div className="space-y-12">
+      <div className="text-center space-y-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#282828] leading-tight">
           Which universities are you interested in applying to?
         </h2>
-        <p className="text-sm font-bold text-[#282828]">
-          Type the name of the university or select from our dropdown list of popular schools{' '}
-          <span className="font-normal text-[#797979]">(Select up to 5)</span>.
+        <p className="text-xs sm:text-sm px-4 max-w-2xl mx-auto">
+          <span className="font-bold text-[#282828]">
+            Type the name of the university or select from our dropdown list of popular schools
+          </span>{' '}
+          <span className="font-normal text-[#797979] uppercase tracking-wide">
+            (Select up to 5)
+          </span>
+          <span className="font-bold text-[#282828]">.</span>
         </p>
       </div>
-      
-      <div className="max-w-md mx-auto">
+
+      <div className="max-w-lg mx-auto px-4">
         <Select>
-          <SelectTrigger className="w-full p-4 border border-[#E3E3E3] rounded bg-[#FDFDFD]">
-            <SelectValue placeholder="--Select--" />
+          <SelectTrigger className="w-full p-4 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-left">
+            <SelectValue placeholder="--Select--" className="text-[#9F9C9C]" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="harvard">Harvard University</SelectItem>
@@ -238,8 +243,30 @@ const SmartAdmit = () => {
             <SelectItem value="brown">Brown University</SelectItem>
             <SelectItem value="cornell">Cornell University</SelectItem>
             <SelectItem value="dartmouth">Dartmouth College</SelectItem>
+            <SelectItem value="duke">Duke University</SelectItem>
+            <SelectItem value="northwestern">Northwestern University</SelectItem>
+            <SelectItem value="uchicago">University of Chicago</SelectItem>
+            <SelectItem value="vanderbilt">Vanderbilt University</SelectItem>
+            <SelectItem value="rice">Rice University</SelectItem>
           </SelectContent>
         </Select>
+
+        {/* Show selected universities */}
+        {formData.universities.length > 0 && (
+          <div className="mt-4 space-y-2">
+            <p className="text-sm font-medium text-[#282828]">Selected Universities:</p>
+            <div className="flex flex-wrap gap-2">
+              {formData.universities.map((uni, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 text-xs font-medium text-[#282828] bg-gray-100 rounded-full"
+                >
+                  {uni}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
