@@ -353,17 +353,17 @@ const SmartAdmit = () => {
   );
 
   const GradeLevelStep = () => (
-    <div className="space-y-8">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-[#282828] mb-4">
+    <div className="space-y-12">
+      <div className="text-center space-y-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#282828]">
           What is your current grade or class level?
         </h2>
       </div>
-      
-      <div className="max-w-md mx-auto">
-        <Select onValueChange={(value) => updateFormData('gradeLevel', value)}>
-          <SelectTrigger className="w-full p-4 border border-[#E3E3E3] rounded bg-[#FDFDFD]">
-            <SelectValue placeholder="--Select--" />
+
+      <div className="max-w-lg mx-auto px-4">
+        <Select onValueChange={(value) => updateFormData('gradeLevel', value)} value={formData.gradeLevel}>
+          <SelectTrigger className="w-full p-4 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-left">
+            <SelectValue placeholder="--Select--" className="text-[#9F9C9C]" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="freshman">Freshman (Grade 9)</SelectItem>
@@ -373,6 +373,7 @@ const SmartAdmit = () => {
             <SelectItem value="gap-year">Gap Year</SelectItem>
             <SelectItem value="college-freshman">College Freshman</SelectItem>
             <SelectItem value="college-transfer">Transfer Student</SelectItem>
+            <SelectItem value="graduate">Graduate Student</SelectItem>
           </SelectContent>
         </Select>
       </div>
