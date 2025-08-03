@@ -13,6 +13,12 @@ interface FormData {
   gpaScale: string;
   gpaScore: string;
   gradeLevel: string;
+  extracurricularHours: number;
+  extracurricularTypes: string[];
+  activityTitle: string;
+  activityRole: string;
+  activityDuration: string;
+  activityHoursPerWeek: string;
 }
 
 const SmartAdmit = () => {
@@ -24,11 +30,17 @@ const SmartAdmit = () => {
     gpaScale: "",
     gpaScore: "",
     gradeLevel: "",
+    extracurricularHours: 10,
+    extracurricularTypes: [],
+    activityTitle: "",
+    activityRole: "",
+    activityDuration: "",
+    activityHoursPerWeek: "",
   });
 
-  const totalSteps = 7;
+  const totalSteps = 10;
 
-  const updateFormData = (field: keyof FormData, value: string | string[]) => {
+  const updateFormData = (field: keyof FormData, value: string | string[] | number) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -39,6 +51,9 @@ const SmartAdmit = () => {
       case 3: return true; // SAT score is optional
       case 4: return formData.gpaScale !== '' && formData.gpaScore !== '';
       case 5: return formData.gradeLevel !== '';
+      case 6: return true; // Extracurricular hours step is optional
+      case 7: return formData.extracurricularTypes.length > 0;
+      case 8: return true; // More questions step is optional
       default: return true;
     }
   };
@@ -63,7 +78,7 @@ const SmartAdmit = () => {
   const ProgressTimeline = () => (
     <div className="flex items-center justify-center mb-12">
       <div className="flex items-center">
-        {Array.from({ length: totalSteps }, (_, index) => (
+        {Array.from({ length: 7 }, (_, index) => (
           <div key={index} className="flex items-center">
             <div
               className={`
@@ -78,7 +93,7 @@ const SmartAdmit = () => {
             >
               {index + 1}
             </div>
-            {index < totalSteps - 1 && (
+            {index < 6 && (
               <div
                 className={`
                   w-16 sm:w-20 md:w-24 h-[1.5px] mx-1 transition-all
@@ -148,14 +163,11 @@ const SmartAdmit = () => {
             
             <div className="flex-1 flex justify-center">
               <div className="w-80 h-80 relative">
-                {/* Placeholder for the illustration - using a simplified version */}
                 <div className="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center relative overflow-hidden">
-                  {/* Illustration elements */}
                   <div className="absolute top-8 right-8 w-16 h-16 bg-yellow-200 rounded-full opacity-60" />
                   <div className="absolute bottom-8 left-8 w-12 h-12 bg-blue-200 rounded-full opacity-60" />
                   <div className="absolute top-16 left-12 w-8 h-8 bg-green-200 rounded-full opacity-60" />
 
-                  {/* Central figure */}
                   <div className="relative z-10 text-center">
                     <div className="w-24 h-24 bg-[#232323] rounded-full mx-auto mb-4 flex items-center justify-center">
                       <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
@@ -292,7 +304,6 @@ const SmartAdmit = () => {
           </SelectContent>
         </Select>
 
-        {/* Show selected universities */}
         {formData.universities.length > 0 && (
           <div className="mt-4 space-y-2">
             <p className="text-sm font-medium text-[#282828]">Selected Universities ({formData.universities.length}/5):</p>
@@ -438,6 +449,483 @@ const SmartAdmit = () => {
     </div>
   );
 
+  const ExtracurricularHoursStep = () => (
+    <div className="space-y-12">
+      <div className="text-center space-y-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#282828] leading-tight">
+          On average, how many hours per week do you spend on extracurricular activities?
+        </h2>
+      </div>
+
+      <div className="max-w-3xl mx-auto px-4 space-y-12">
+        <div className="space-y-3">
+          <div className="relative w-full h-2.5">
+            <div className="w-full h-2.5 bg-gray-200 rounded-lg border border-[#E4E4E4]" />
+            <div 
+              className="h-2.5 bg-[#E0BEBA] rounded-lg absolute top-0 left-0"
+              style={{ width: `${(formData.extracurricularHours / 40) * 100}%` }}
+            />
+            <div 
+              className="absolute top-0 w-4 h-4 bg-[#C17C74] border-2 border-white rounded-full cursor-pointer transform -translate-y-1"
+              style={{ left: `calc(${(formData.extracurricularHours / 40) * 100}% - 8px)` }}
+            />
+          </div>
+          
+          <input
+            type="range"
+            min="0"
+            max="40"
+            value={formData.extracurricularHours}
+            onChange={(e) => updateFormData('extracurricularHours', parseInt(e.target.value))}
+            className="w-full h-2.5 bg-transparent appearance-none cursor-pointer opacity-0 absolute top-0"
+          />
+        </div>
+
+        <div className="flex justify-between text-sm font-bold text-[#434343]">
+          <span>0</span>
+          <span>5</span>
+          <span>10</span>
+          <span>15</span>
+          <span>20</span>
+          <span>25</span>
+          <span>30</span>
+          <span>35</span>
+          <span>40+</span>
+        </div>
+
+        <div className="text-center">
+          <p className="text-lg font-bold text-[#282828]">
+            Current selection: {formData.extracurricularHours} hours per week
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const ExtracurricularTypesStep = () => (
+    <div className="space-y-12">
+      <div className="text-center space-y-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#282828] leading-tight">
+          Which types of extracurricular activities have you participated in?
+        </h2>
+      </div>
+
+      <div className="max-w-lg mx-auto px-4 space-y-4">
+        <div className="text-xs font-bold text-[#282828] uppercase tracking-wider">
+          Select all that apply:
+        </div>
+        
+        <Select onValueChange={(value) => {
+          if (!formData.extracurricularTypes.includes(value)) {
+            updateFormData('extracurricularTypes', [...formData.extracurricularTypes, value]);
+          }
+        }}>
+          <SelectTrigger className="w-full p-4 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-left">
+            <SelectValue placeholder="--Select--" className="text-[#9F9C9C]" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="sports">Sports/Athletics</SelectItem>
+            <SelectItem value="music">Music</SelectItem>
+            <SelectItem value="drama">Drama/Theater</SelectItem>
+            <SelectItem value="debate">Debate/Speech</SelectItem>
+            <SelectItem value="volunteering">Volunteering/Community Service</SelectItem>
+            <SelectItem value="academic-clubs">Academic Clubs</SelectItem>
+            <SelectItem value="student-government">Student Government</SelectItem>
+            <SelectItem value="art">Visual Arts</SelectItem>
+            <SelectItem value="writing">Writing/Journalism</SelectItem>
+            <SelectItem value="research">Research Projects</SelectItem>
+            <SelectItem value="internships">Internships</SelectItem>
+            <SelectItem value="leadership">Leadership Roles</SelectItem>
+            <SelectItem value="competitions">Academic Competitions</SelectItem>
+            <SelectItem value="technology">Technology/Coding</SelectItem>
+            <SelectItem value="entrepreneurship">Entrepreneurship</SelectItem>
+          </SelectContent>
+        </Select>
+
+        {formData.extracurricularTypes.length > 0 && (
+          <div className="mt-4 space-y-2">
+            <p className="text-sm font-medium text-[#282828]">Selected Activities:</p>
+            <div className="flex flex-wrap gap-2">
+              {formData.extracurricularTypes.map((activity, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 text-xs font-medium text-[#282828] bg-gray-100 rounded-full flex items-center space-x-1"
+                >
+                  <span>{activity.charAt(0).toUpperCase() + activity.slice(1).replace('-', ' ')}</span>
+                  <button
+                    onClick={() => {
+                      const newTypes = formData.extracurricularTypes.filter((_, i) => i !== index);
+                      updateFormData('extracurricularTypes', newTypes);
+                    }}
+                    className="text-red-500 hover:text-red-700 ml-1"
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {formData.extracurricularTypes.length === 0 && (
+          <p className="mt-2 text-xs text-red-500 text-center">Please select at least one activity type to continue</p>
+        )}
+      </div>
+
+      <div className="max-w-3xl mx-auto mt-12 px-4">
+        <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <p className="text-[#282828] font-bold text-lg">
+                To improve your chances of an accurate SmartAdmit score, you can optionally answer a few short questions about your activities.
+              </p>
+            </div>
+            <Button 
+              onClick={() => setCurrentStep(8)}
+              className="bg-[#232323] text-white px-4 py-2 rounded-md font-bold text-sm flex items-center space-x-2 hover:bg-[#232323]/90"
+            >
+              <span>Answer now</span>
+              <ChevronRight className="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const MoreQuestionsStep = () => (
+    <div className="space-y-12">
+      <div className="text-center space-y-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#282828]">
+          More Questions
+        </h2>
+      </div>
+
+      <div className="max-w-lg mx-auto px-4 space-y-8">
+        <div className="space-y-2">
+          <Label className="text-[#232323] font-bold">Activity Title:</Label>
+          <Input
+            type="text"
+            placeholder="Text"
+            value={formData.activityTitle}
+            onChange={(e) => updateFormData('activityTitle', e.target.value)}
+            className="w-full p-3 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-base placeholder:text-[#9F9C9C]"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label className="text-[#232323] font-bold">Your Role:</Label>
+          <Select onValueChange={(value) => updateFormData('activityRole', value)} value={formData.activityRole}>
+            <SelectTrigger className="w-full p-3 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-left">
+              <SelectValue placeholder="--Select--" className="text-[#9F9C9C]" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="president">President</SelectItem>
+              <SelectItem value="vice-president">Vice President</SelectItem>
+              <SelectItem value="secretary">Secretary</SelectItem>
+              <SelectItem value="treasurer">Treasurer</SelectItem>
+              <SelectItem value="captain">Captain</SelectItem>
+              <SelectItem value="co-captain">Co-Captain</SelectItem>
+              <SelectItem value="member">Member</SelectItem>
+              <SelectItem value="volunteer">Volunteer</SelectItem>
+              <SelectItem value="participant">Participant</SelectItem>
+              <SelectItem value="founder">Founder</SelectItem>
+              <SelectItem value="organizer">Organizer</SelectItem>
+              <SelectItem value="team-lead">Team Lead</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label className="text-[#232323] font-bold">Duration:</Label>
+          <Select onValueChange={(value) => updateFormData('activityDuration', value)} value={formData.activityDuration}>
+            <SelectTrigger className="w-full p-3 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-left">
+              <SelectValue placeholder="--Select--" className="text-[#9F9C9C]" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="less-than-1-year">Less than 1 year</SelectItem>
+              <SelectItem value="1-year">1 year</SelectItem>
+              <SelectItem value="2-years">2 years</SelectItem>
+              <SelectItem value="3-years">3 years</SelectItem>
+              <SelectItem value="4-years">4 years or more</SelectItem>
+              <SelectItem value="ongoing">Ongoing</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label className="text-[#232323] font-bold">
+            Hours per Week <span className="text-[#434343] font-bold">(optional)</span>:
+          </Label>
+          <Select onValueChange={(value) => updateFormData('activityHoursPerWeek', value)} value={formData.activityHoursPerWeek}>
+            <SelectTrigger className="w-full p-3 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-left">
+              <SelectValue placeholder="--Select--" className="text-[#9F9C9C]" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="1-2">1-2 hours</SelectItem>
+              <SelectItem value="3-5">3-5 hours</SelectItem>
+              <SelectItem value="6-10">6-10 hours</SelectItem>
+              <SelectItem value="11-15">11-15 hours</SelectItem>
+              <SelectItem value="16-20">16-20 hours</SelectItem>
+              <SelectItem value="20+">20+ hours</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+    </div>
+  );
+
+  const ResultsPage = () => (
+    <div className="min-h-screen bg-[#FDFDFD] relative">
+      <div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-10">
+        <Logo />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
+        <div className="pt-16 sm:pt-12">
+          {/* Score Circle */}
+          <div className="flex flex-col items-center space-y-10 mb-16">
+            <div className="relative w-72 h-72">
+              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 272 271">
+                <circle
+                  cx="136"
+                  cy="135.5"
+                  r="105.5"
+                  fill="white"
+                  stroke="#F9F9FD"
+                  strokeWidth="16"
+                />
+                <path
+                  d="M 241.5 135.5 A 105.5 105.5 0 1 1 135.5 30"
+                  fill="none"
+                  stroke="#69813F"
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <p className="text-xs font-medium text-[#797979] uppercase tracking-wider mb-2">
+                  Your smart-admit score
+                </p>
+                <p className="text-5xl font-bold text-[#0A0A0B]">82%</p>
+              </div>
+              <div className="absolute -bottom-4 right-8 bg-white rounded-full px-3 py-2 shadow-lg">
+                <p className="text-xs font-bold text-[#69813F]">Better than 48% students</p>
+              </div>
+            </div>
+
+            <div className="text-center space-y-4">
+              <p className="text-lg text-[#434343]">
+                Based on your academics, test scores, activities, and preferred course/university -
+              </p>
+              <div className="inline-flex items-center bg-[rgba(129,169,61,0.1)] border border-[rgba(105,129,63,0.1)] rounded-md px-4 py-2">
+                <div className="w-2 h-2 bg-[#69813F] rounded-full mr-3" />
+                <span className="font-bold text-[#232323]">Strong profile</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Top Program Matches */}
+          <div className="bg-[rgba(228,228,228,0.3)] border border-[rgba(228,228,228,0.6)] rounded-lg p-6 mb-8">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-lg font-bold text-[#282828]">Top Program Matches</h3>
+              <Button variant="outline" className="border-[#232323] text-[#232323] hover:bg-[#232323] hover:text-white">
+                View more
+                <ChevronRight className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {[
+                { name: "Harvard University", logo: "🎓", score: "84%" },
+                { name: "Brown University", logo: "🏛️", score: "84%" },
+                { name: "Yale University", logo: "⚡", score: "84%" },
+                { name: "MIT University", logo: "🔬", score: "84%" }
+              ].map((uni, index) => (
+                <div key={index} className="bg-white border border-[rgba(228,228,228,0.6)] rounded-lg p-4 flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-2xl border">
+                    {uni.logo}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-center">
+                      <h4 className="font-bold text-[#232323] text-sm">{uni.name}</h4>
+                      <ChevronRight className="w-5 h-5 text-[#232323]" />
+                    </div>
+                    <p className="text-xl font-bold text-[#0A0A0B]">{uni.score}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Comparison Table */}
+          <div className="bg-white border border-[#E6E9F5] rounded-lg shadow-sm mb-8">
+            <div className="border-b border-[#E6E9F5] p-6 text-center">
+              <h3 className="text-2xl font-bold text-[#282828]">
+                How You Compare <span className="text-lg font-normal text-[#5E5E5E]">(vs avg admitted applicant)</span>
+              </h3>
+            </div>
+            
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-[#E6E9F5]">
+                    <th className="text-left p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">Metric</th>
+                    <th className="text-left p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">You</th>
+                    <th className="text-left p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">Avg Admitted</th>
+                    <th className="text-left p-4 font-bold text-[#282828]">Comparison Insight</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-[#E6E9F5]">
+                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">GPA</td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">3.75</td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">3.7</td>
+                    <td className="p-4">
+                      <div className="flex items-center">
+                        <div className="w-2 h-2 bg-[#467896] rounded-full mr-2" />
+                        <span className="text-[#434343]">In the range</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className="border-b border-[#E6E9F5]">
+                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">SAT</td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">1450</td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">1475</td>
+                    <td className="p-4">
+                      <div className="flex items-center">
+                        <div className="w-2 h-2 bg-[#FFC512] rounded-full mr-2" />
+                        <span className="text-[#434343]">Below recommended range</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className="border-b border-[#E6E9F5]">
+                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">EC Score</td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">7.8/10</td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">6.9</td>
+                    <td className="p-4">
+                      <div className="flex items-center">
+                        <div className="w-2 h-2 bg-[#467896] rounded-full mr-2" />
+                        <span className="text-[#434343]">In the range</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className="border-b border-[#E6E9F5]">
+                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">Research/Internship</td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">Present</td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">40% of admit</td>
+                    <td className="p-4">
+                      <div className="flex items-center">
+                        <div className="w-2 h-2 bg-[#69813F] rounded-full mr-2" />
+                        <span className="text-[#434343]">Bonus advantage</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">Subject Rigor</td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">High</td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">Medium-High</td>
+                    <td className="p-4">
+                      <div className="flex items-center">
+                        <div className="w-2 h-2 bg-[#C17C74] rounded-full mr-2" />
+                        <span className="text-[#434343]">Above recommended range</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Strengths and Improvements */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div className="bg-white border border-[rgba(159,185,113,0.3)] rounded-lg p-6 shadow-sm">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-6 h-6 text-[#69813F]">⭐</div>
+                <h3 className="text-xl font-bold text-[#232323]">What's Working for You</h3>
+              </div>
+              <div className="space-y-3 text-sm text-[#282828]">
+                <p>• Leadership & long-term EC involvement.</p>
+                <p>• Internship/research aligns with chosen major.</p>
+                <p>• Subject selection matches program rigor.</p>
+              </div>
+            </div>
+
+            <div className="bg-white border border-[#E0BEBA] rounded-lg p-6 shadow-sm">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-6 h-6 text-[#C17C74]">📊</div>
+                  <h3 className="text-xl font-bold text-[#232323]">What Needs Improvement</h3>
+                </div>
+              </div>
+              <div className="space-y-3 text-sm text-[#282828] mb-4">
+                <p>• Slight SAT gap for ultra-competitive US programs.</p>
+                <p>• Lack of subject-specific competition participation.</p>
+              </div>
+              <Button className="bg-[#C17C74] text-white px-4 py-2 rounded-md font-bold text-sm hover:bg-[#C17C74]/90">
+                How to improve?
+                <ChevronRight className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+          </div>
+
+          {/* Next Steps */}
+          <div className="bg-white rounded-lg p-6 shadow-sm">
+            <div className="text-center mb-6">
+              <p className="text-sm font-bold text-[#393939] uppercase tracking-wider">
+                Here are some suggested next steps to help you reach your goals:
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-[rgba(129,169,61,0.1)] rounded-lg p-4">
+                <div className="flex items-start space-x-3">
+                  <span className="text-2xl font-bold text-[#AEAEAE]">01</span>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-[#232323] mb-2">Check other universities/ backups</h4>
+                    <p className="text-sm text-[#656565] mb-4">Lorem ipsum dolor sit amet consectetur. Consequat non massa aliquam viverra.</p>
+                    <Button className="bg-[#69813F] text-white px-3 py-2 rounded-md font-bold text-sm hover:bg-[#69813F]/90">
+                      Check now
+                      <ChevronRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[rgba(255,217,101,0.15)] rounded-lg p-4">
+                <div className="flex items-start space-x-3">
+                  <span className="text-2xl font-bold text-[#AEAEAE]">02</span>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-[#232323] mb-2">Get a roadmap to boost odds</h4>
+                    <p className="text-sm text-[#656565] mb-4">Lorem ipsum dolor sit amet consectetur. Consequat non massa aliquam viverra.</p>
+                    <Button className="bg-[#FFD965] text-[#232323] px-3 py-2 rounded-md font-bold text-sm hover:bg-[#FFD965]/90">
+                      Get started
+                      <ChevronRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[rgba(55,107,139,0.1)] rounded-lg p-4">
+                <div className="flex items-start space-x-3">
+                  <span className="text-2xl font-bold text-[#AEAEAE]">03</span>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-[#232323] mb-2">Set deadlines + alerts in your dashboard</h4>
+                    <p className="text-sm text-[#656565] mb-4">Lorem ipsum dolor sit amet consectetur. Consequat non massa aliquam viverra.</p>
+                    <Button className="bg-[#467896] text-white px-3 py-2 rounded-md font-bold text-sm hover:bg-[#467896]/90">
+                      Set up your planner
+                      <ChevronRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   const renderStep = () => {
     switch (currentStep) {
       case 0: return <WelcomeScreen />;
@@ -446,11 +934,15 @@ const SmartAdmit = () => {
       case 3: return <SATScoreStep />;
       case 4: return <GPAStep />;
       case 5: return <GradeLevelStep />;
+      case 6: return <ExtracurricularHoursStep />;
+      case 7: return <ExtracurricularTypesStep />;
+      case 8: return <MoreQuestionsStep />;
+      case 9: return <ResultsPage />;
       default: return <WelcomeScreen />;
     }
   };
 
-  if (currentStep === 0) {
+  if (currentStep === 0 || currentStep === 9) {
     return renderStep();
   }
 
@@ -485,18 +977,17 @@ const SmartAdmit = () => {
 
           <Button
             onClick={nextStep}
-            disabled={currentStep >= 5 || (currentStep > 0 && !isStepValid(currentStep))}
+            disabled={currentStep >= 8 || (currentStep > 0 && !isStepValid(currentStep))}
             className="bg-[#232323] hover:bg-[#232323]/90 disabled:bg-gray-400 disabled:cursor-not-allowed text-white flex items-center space-x-2 px-4 sm:px-6 py-2.5 sm:py-3"
           >
             <span className="font-bold text-sm sm:text-base">
-              {currentStep >= 5 ? 'Complete' : 'Next'}
+              {currentStep >= 8 ? 'Submit' : 'Next'}
             </span>
             <ChevronRight className="w-4 h-4" />
           </Button>
         </div>
       </div>
 
-      {/* Background decoration - matching Figma design */}
       <div className="fixed bottom-0 left-0 right-0 h-60 sm:h-80 pointer-events-none">
         <div className="absolute bottom-0 left-0 w-full h-80 opacity-20">
           <div className="absolute bottom-0 left-0 w-1/2 h-full bg-gradient-to-t from-blue-50 to-transparent" />
