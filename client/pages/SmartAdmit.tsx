@@ -54,38 +54,6 @@ const IsolatedInput = memo(
     max?: string;
     step?: string;
   }) => {
-    const [localValue, setLocalValue] = useState(value);
-
-    // Update local value when prop changes
-    React.useEffect(() => {
-      setLocalValue(value);
-    }, [value]);
-
-    // Debounced update to parent
-    const timeoutRef = React.useRef<NodeJS.Timeout>();
-
-    const handleChange = (newValue: string) => {
-      setLocalValue(newValue);
-
-      // Clear existing timeout
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-
-      // Set new timeout to update parent after user stops typing
-      timeoutRef.current = setTimeout(() => {
-        onChange(newValue);
-      }, 300);
-    };
-
-    const handleBlur = () => {
-      // Immediately update parent on blur
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-      onChange(localValue);
-    };
-
     return (
       <Input
         type={type}
@@ -93,15 +61,50 @@ const IsolatedInput = memo(
         min={min}
         max={max}
         step={step}
-        value={localValue}
-        onChange={(e) => handleChange(e.target.value)}
-        onBlur={handleBlur}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         className={className}
         autoComplete="off"
       />
     );
   },
 );
+const IsolatedInput = memo(
+  ({
+    value,
+    onChange,
+    placeholder,
+    type = "text",
+    className = "",
+    min,
+    max,
+    step,
+  }: {
+    value: string;
+    onChange: (value: string) => void;
+    placeholder?: string;
+    type?: string;
+    className?: string;
+    min?: string;
+    max?: string;
+    step?: string;
+  }) => {
+    return (
+      <Input
+        type={type}
+        placeholder={placeholder}
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className={className}
+        autoComplete="off"
+      />
+    );
+  },
+);
+
 
 const SmartAdmit = () => {
   const [currentStep, setCurrentStep] = useState(0);
