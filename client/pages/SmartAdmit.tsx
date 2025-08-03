@@ -1046,8 +1046,10 @@ const SmartAdmit = () => {
           <ProgressTimeline />
         </div>
 
-        <div className="mb-8 sm:mb-12">
-          {renderStep()}
+        <div className="mb-8 sm:mb-12 transition-all duration-500 ease-in-out transform">
+          <div className="animate-fadeIn">
+            {renderStep()}
+          </div>
         </div>
 
         <div className="flex justify-between items-center max-w-lg mx-auto px-4 mt-8 sm:mt-12">
