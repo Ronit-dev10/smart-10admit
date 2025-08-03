@@ -40,9 +40,9 @@ const SmartAdmit = () => {
 
   const totalSteps = 10;
 
-  const updateFormData = (field: keyof FormData, value: string | string[] | number) => {
+  const updateFormData = useCallback((field: keyof FormData, value: string | string[] | number) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-  };
+  }, []);
 
   const isStepValid = (step: number): boolean => {
     switch (step) {
