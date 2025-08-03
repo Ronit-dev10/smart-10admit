@@ -338,7 +338,7 @@ const SmartAdmit = () => {
         <p className="text-xs sm:text-sm px-4 max-w-2xl mx-auto">
           <span className="font-bold text-[#282828] uppercase tracking-wide">
             Enter your most recent total SAT score out of 1600
-          </span>{' '}
+          </span>
           <span className="font-normal text-[#797979]">
             (optional if not taken yet)
           </span>
