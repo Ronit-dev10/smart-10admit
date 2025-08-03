@@ -204,7 +204,7 @@ const SmartAdmit = () => {
 
       <div className="max-w-lg mx-auto px-4">
         <Select onValueChange={(value) => updateFormData('major', value)} value={formData.major}>
-          <SelectTrigger className="w-full p-4 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-left">
+          <SelectTrigger className={`w-full p-4 border rounded-md bg-[#FDFDFD] text-left ${formData.major ? 'border-[#E3E3E3]' : 'border-red-200'}`}>
             <SelectValue placeholder="--Select--" className="text-[#9F9C9C]" />
           </SelectTrigger>
           <SelectContent>
@@ -222,6 +222,9 @@ const SmartAdmit = () => {
             <SelectItem value="history">History</SelectItem>
           </SelectContent>
         </Select>
+        {!formData.major && (
+          <p className="mt-2 text-xs text-red-500 text-center">Please select your intended major to continue</p>
+        )}
       </div>
     </div>
   );
