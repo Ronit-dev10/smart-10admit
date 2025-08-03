@@ -442,15 +442,13 @@ const SmartAdmit = () => {
             </SelectContent>
           </Select>
 
-          <Input
-            key="gpa-score-input"
+          <MemoizedInput
             type="number"
             placeholder="Enter Your Score"
             step="0.01"
             value={formData.gpaScore}
-            onChange={(e) => updateFormData('gpaScore', e.target.value)}
+            onChange={(value) => updateFormData('gpaScore', value)}
             className="flex-1 p-5 border border-[#E3E3E3] rounded-md bg-[#FDFDFD] text-base placeholder:text-[#9F9C9C]"
-            autoComplete="off"
           />
         </div>
 
