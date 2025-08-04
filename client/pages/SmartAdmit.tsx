@@ -1,5 +1,4 @@
 import React, { useState, useCallback, memo } from "react";
-import React, { useState, useCallback, memo } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -995,7 +994,7 @@ const SmartAdmit = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {[
                 { name: "Harvard University", logo: "🎓", score: "84%" },
-                { name: "Brown University", logo: "🏛️", score: "84%" },
+                { name: "Brown University", logo: "🏛��", score: "84%" },
                 { name: "Yale University", logo: "⚡", score: "84%" },
                 { name: "MIT University", logo: "🔬", score: "84%" },
               ].map((uni, index) => (
