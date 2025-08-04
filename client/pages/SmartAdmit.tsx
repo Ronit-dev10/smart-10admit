@@ -461,7 +461,9 @@ const SmartAdmit = () => {
             <SelectItem value="cornell">Cornell University</SelectItem>
             <SelectItem value="dartmouth">Dartmouth College</SelectItem>
             <SelectItem value="duke">Duke University</SelectItem>
-            <SelectItem value="northwestern">Northwestern University</SelectItem>
+            <SelectItem value="northwestern">
+              Northwestern University
+            </SelectItem>
             <SelectItem value="uchicago">University of Chicago</SelectItem>
             <SelectItem value="vanderbilt">Vanderbilt University</SelectItem>
             <SelectItem value="rice">Rice University</SelectItem>
@@ -934,7 +936,10 @@ const SmartAdmit = () => {
           {/* Score Circle */}
           <div className="flex flex-col items-center space-y-10 mb-16">
             <div className="relative w-72 h-72">
-              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 272 271">
+              <svg
+                className="w-full h-full transform -rotate-90"
+                viewBox="0 0 272 271"
+              >
                 <circle
                   cx="136"
                   cy="135.5"
@@ -958,13 +963,16 @@ const SmartAdmit = () => {
                 <p className="text-5xl font-bold text-[#0A0A0B]">82%</p>
               </div>
               <div className="absolute -bottom-4 right-8 bg-white rounded-full px-3 py-2 shadow-lg">
-                <p className="text-xs font-bold text-[#69813F]">Better than 48% students</p>
+                <p className="text-xs font-bold text-[#69813F]">
+                  Better than 48% students
+                </p>
               </div>
             </div>
 
             <div className="text-center space-y-4">
               <p className="text-lg text-[#434343]">
-                Based on your academics, test scores, activities, and preferred course/university -
+                Based on your academics, test scores, activities, and preferred
+                course/university -
               </p>
               <div className="inline-flex items-center bg-[rgba(129,169,61,0.1)] border border-[rgba(105,129,63,0.1)] rounded-md px-4 py-2">
                 <div className="w-2 h-2 bg-[#69813F] rounded-full mr-3" />
@@ -976,30 +984,42 @@ const SmartAdmit = () => {
           {/* Top Program Matches */}
           <div className="bg-[rgba(228,228,228,0.3)] border border-[rgba(228,228,228,0.6)] rounded-lg p-6 mb-8">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg font-bold text-[#282828]">Top Program Matches</h3>
-              <Button variant="outline" className="border-[#232323] text-[#232323] hover:bg-[#232323] hover:text-white">
+              <h3 className="text-lg font-bold text-[#282828]">
+                Top Program Matches
+              </h3>
+              <Button
+                variant="outline"
+                className="border-[#232323] text-[#232323] hover:bg-[#232323] hover:text-white"
+              >
                 View more
                 <ChevronRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {[
                 { name: "Harvard University", logo: "🎓", score: "84%" },
                 { name: "Brown University", logo: "🏛️", score: "84%" },
                 { name: "Yale University", logo: "⚡", score: "84%" },
-                { name: "MIT University", logo: "🔬", score: "84%" }
+                { name: "MIT University", logo: "🔬", score: "84%" },
               ].map((uni, index) => (
-                <div key={index} className="bg-white border border-[rgba(228,228,228,0.6)] rounded-lg p-4 flex items-center space-x-3">
+                <div
+                  key={index}
+                  className="bg-white border border-[rgba(228,228,228,0.6)] rounded-lg p-4 flex items-center space-x-3"
+                >
                   <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-2xl border">
                     {uni.logo}
                   </div>
                   <div className="flex-1">
                     <div className="flex justify-between items-center">
-                      <h4 className="font-bold text-[#232323] text-sm">{uni.name}</h4>
+                      <h4 className="font-bold text-[#232323] text-sm">
+                        {uni.name}
+                      </h4>
                       <ChevronRight className="w-5 h-5 text-[#232323]" />
                     </div>
-                    <p className="text-xl font-bold text-[#0A0A0B]">{uni.score}</p>
+                    <p className="text-xl font-bold text-[#0A0A0B]">
+                      {uni.score}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -1010,25 +1030,42 @@ const SmartAdmit = () => {
           <div className="bg-white border border-[#E6E9F5] rounded-lg shadow-sm mb-8">
             <div className="border-b border-[#E6E9F5] p-6 text-center">
               <h3 className="text-2xl font-bold text-[#282828]">
-                How You Compare <span className="text-lg font-normal text-[#5E5E5E]">(vs avg admitted applicant)</span>
+                How You Compare{" "}
+                <span className="text-lg font-normal text-[#5E5E5E]">
+                  (vs avg admitted applicant)
+                </span>
               </h3>
             </div>
-            
+
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-[#E6E9F5]">
-                    <th className="text-left p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">Metric</th>
-                    <th className="text-left p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">You</th>
-                    <th className="text-left p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">Avg Admitted</th>
-                    <th className="text-left p-4 font-bold text-[#282828]">Comparison Insight</th>
+                    <th className="text-left p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">
+                      Metric
+                    </th>
+                    <th className="text-left p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">
+                      You
+                    </th>
+                    <th className="text-left p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">
+                      Avg Admitted
+                    </th>
+                    <th className="text-left p-4 font-bold text-[#282828]">
+                      Comparison Insight
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b border-[#E6E9F5]">
-                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">GPA</td>
-                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">3.75</td>
-                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">3.7</td>
+                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">
+                      GPA
+                    </td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">
+                      3.75
+                    </td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">
+                      3.7
+                    </td>
                     <td className="p-4">
                       <div className="flex items-center">
                         <div className="w-2 h-2 bg-[#467896] rounded-full mr-2" />
@@ -1037,20 +1074,34 @@ const SmartAdmit = () => {
                     </td>
                   </tr>
                   <tr className="border-b border-[#E6E9F5]">
-                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">SAT</td>
-                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">1450</td>
-                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">1475</td>
+                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">
+                      SAT
+                    </td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">
+                      1450
+                    </td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">
+                      1475
+                    </td>
                     <td className="p-4">
                       <div className="flex items-center">
                         <div className="w-2 h-2 bg-[#FFC512] rounded-full mr-2" />
-                        <span className="text-[#434343]">Below recommended range</span>
+                        <span className="text-[#434343]">
+                          Below recommended range
+                        </span>
                       </div>
                     </td>
                   </tr>
                   <tr className="border-b border-[#E6E9F5]">
-                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">EC Score</td>
-                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">7.8/10</td>
-                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">6.9</td>
+                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">
+                      EC Score
+                    </td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">
+                      7.8/10
+                    </td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">
+                      6.9
+                    </td>
                     <td className="p-4">
                       <div className="flex items-center">
                         <div className="w-2 h-2 bg-[#467896] rounded-full mr-2" />
@@ -1059,9 +1110,15 @@ const SmartAdmit = () => {
                     </td>
                   </tr>
                   <tr className="border-b border-[#E6E9F5]">
-                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">Research/Internship</td>
-                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">Present</td>
-                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">40% of admit</td>
+                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">
+                      Research/Internship
+                    </td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">
+                      Present
+                    </td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">
+                      40% of admit
+                    </td>
                     <td className="p-4">
                       <div className="flex items-center">
                         <div className="w-2 h-2 bg-[#69813F] rounded-full mr-2" />
@@ -1070,13 +1127,21 @@ const SmartAdmit = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">Subject Rigor</td>
-                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">High</td>
-                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">Medium-High</td>
+                    <td className="p-4 font-bold text-[#282828] border-r border-[#E6E9F5]">
+                      Subject Rigor
+                    </td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">
+                      High
+                    </td>
+                    <td className="p-4 text-[#434343] border-r border-[#E6E9F5]">
+                      Medium-High
+                    </td>
                     <td className="p-4">
                       <div className="flex items-center">
                         <div className="w-2 h-2 bg-[#C17C74] rounded-full mr-2" />
-                        <span className="text-[#434343]">Above recommended range</span>
+                        <span className="text-[#434343]">
+                          Above recommended range
+                        </span>
                       </div>
                     </td>
                   </tr>
@@ -1090,7 +1155,9 @@ const SmartAdmit = () => {
             <div className="bg-white border border-[rgba(159,185,113,0.3)] rounded-lg p-6 shadow-sm">
               <div className="flex items-center space-x-3 mb-4">
                 <div className="w-6 h-6 text-[#69813F]">⭐</div>
-                <h3 className="text-xl font-bold text-[#232323]">What's Working for You</h3>
+                <h3 className="text-xl font-bold text-[#232323]">
+                  What's Working for You
+                </h3>
               </div>
               <div className="space-y-3 text-sm text-[#282828]">
                 <p>• Leadership & long-term EC involvement.</p>
@@ -1103,7 +1170,9 @@ const SmartAdmit = () => {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-6 h-6 text-[#C17C74]">📊</div>
-                  <h3 className="text-xl font-bold text-[#232323]">What Needs Improvement</h3>
+                  <h3 className="text-xl font-bold text-[#232323]">
+                    What Needs Improvement
+                  </h3>
                 </div>
               </div>
               <div className="space-y-3 text-sm text-[#282828] mb-4">
@@ -1124,14 +1193,19 @@ const SmartAdmit = () => {
                 Here are some suggested next steps to help you reach your goals:
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-[rgba(129,169,61,0.1)] rounded-lg p-4">
                 <div className="flex items-start space-x-3">
                   <span className="text-2xl font-bold text-[#AEAEAE]">01</span>
                   <div className="flex-1">
-                    <h4 className="font-bold text-[#232323] mb-2">Check other universities/ backups</h4>
-                    <p className="text-sm text-[#656565] mb-4">Lorem ipsum dolor sit amet consectetur. Consequat non massa aliquam viverra.</p>
+                    <h4 className="font-bold text-[#232323] mb-2">
+                      Check other universities/ backups
+                    </h4>
+                    <p className="text-sm text-[#656565] mb-4">
+                      Lorem ipsum dolor sit amet consectetur. Consequat non
+                      massa aliquam viverra.
+                    </p>
                     <Button className="bg-[#69813F] text-white px-3 py-2 rounded-md font-bold text-sm hover:bg-[#69813F]/90">
                       Check now
                       <ChevronRight className="w-4 h-4 ml-2" />
@@ -1144,8 +1218,13 @@ const SmartAdmit = () => {
                 <div className="flex items-start space-x-3">
                   <span className="text-2xl font-bold text-[#AEAEAE]">02</span>
                   <div className="flex-1">
-                    <h4 className="font-bold text-[#232323] mb-2">Get a roadmap to boost odds</h4>
-                    <p className="text-sm text-[#656565] mb-4">Lorem ipsum dolor sit amet consectetur. Consequat non massa aliquam viverra.</p>
+                    <h4 className="font-bold text-[#232323] mb-2">
+                      Get a roadmap to boost odds
+                    </h4>
+                    <p className="text-sm text-[#656565] mb-4">
+                      Lorem ipsum dolor sit amet consectetur. Consequat non
+                      massa aliquam viverra.
+                    </p>
                     <Button className="bg-[#FFD965] text-[#232323] px-3 py-2 rounded-md font-bold text-sm hover:bg-[#FFD965]/90">
                       Get started
                       <ChevronRight className="w-4 h-4 ml-2" />
@@ -1158,8 +1237,13 @@ const SmartAdmit = () => {
                 <div className="flex items-start space-x-3">
                   <span className="text-2xl font-bold text-[#AEAEAE]">03</span>
                   <div className="flex-1">
-                    <h4 className="font-bold text-[#232323] mb-2">Set deadlines + alerts in your dashboard</h4>
-                    <p className="text-sm text-[#656565] mb-4">Lorem ipsum dolor sit amet consectetur. Consequat non massa aliquam viverra.</p>
+                    <h4 className="font-bold text-[#232323] mb-2">
+                      Set deadlines + alerts in your dashboard
+                    </h4>
+                    <p className="text-sm text-[#656565] mb-4">
+                      Lorem ipsum dolor sit amet consectetur. Consequat non
+                      massa aliquam viverra.
+                    </p>
                     <Button className="bg-[#467896] text-white px-3 py-2 rounded-md font-bold text-sm hover:bg-[#467896]/90">
                       Set up your planner
                       <ChevronRight className="w-4 h-4 ml-2" />
