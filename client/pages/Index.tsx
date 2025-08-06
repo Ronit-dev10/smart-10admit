@@ -4,20 +4,23 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 export default function Index() {
-  const [exampleFromServer, setExampleFromServer] = useState("");
-  // Fetch users on component mount
+  const [exampleFromServer, setExampleFromServer] = useState<string>("");
+
+  // Fetch demo message from server on component mount
   useEffect(() => {
     fetchDemo();
   }, []);
 
-  // Example of how to fetch data from the server (if needed)
   const fetchDemo = async () => {
     try {
       const response = await fetch("/api/demo");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = (await response.json()) as DemoResponse;
       setExampleFromServer(data.message);
     } catch (error) {
-      console.error("Error fetching hello:", error);
+      console.error("Error fetching demo message:", error);
     }
   };
 
@@ -46,7 +49,7 @@ export default function Index() {
           insights.
         </p>
 
-        <Link to="/questionnaire">
+        <Link to="/questionnaire" aria-label="Start assessment questionnaire">
           <Button
             size="lg"
             className="bg-[#232323] hover:bg-[#232323]/90 text-white px-8 py-3 text-lg font-semibold"
@@ -59,6 +62,7 @@ export default function Index() {
           <p>Takes about 5 minutes to complete</p>
         </div>
 
+        {/* Hidden element, presumably for SEO or caching */}
         <div className="mt-12 text-xs text-slate-400">
           <p className="hidden">{exampleFromServer}</p>
         </div>
