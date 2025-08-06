@@ -4,32 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>React App Without Build</title>
-
-  <!-- Load React and ReactDOM from CDN -->
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  
-  <!-- Load Babel to transpile JSX in browser -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
   <div id="root"></div>
 
-  <!-- Your React code written in JSX and transpiled by Babel -->
-  <script type="text/babel">
-
-    function App() {
-      return (
-        <div>
-          <h1>Hello World, React without build!</h1>
-          <p>This runs directly in the browser using Babel CDN.</p>
-        </div>
-      );
-    }
-
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
-
-  </script>
+  <!-- This script tag loads your bundled React app -->
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
